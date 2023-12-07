@@ -1,17 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import SearchBar from "../components/SearchBar";
 import { HiLocationMarker } from "react-icons/hi";
 import DateCards from "../components/DateCards";
 import Tabs from "../components/Tabs";
 
 function UserDashboard() {
+  const [search, setSearch] = useState("");
+
+  const handleSearch = (value) => {
+    setSearch(value);
+    console.log("Search:", value.toLowerCase());
+    
+  };
+
   return (
     <>
-    
-      <h1 className="mt-10 ml-10 text-4xl font-bold text-[#F0E9E9]">Weatherly.</h1>{/* Header */}
+      <h1 className="mt-10 ml-10 text-4xl font-bold text-[#F0E9E9]">
+        Weatherly.
+      </h1>
+      {/* Header */}
       <div className="flex flex-col xl:justify-around xl:flex-row">
         <div className="flex flex-col items-center gap-10 mb-5">
-          <SearchBar />
+          <SearchBar handleSearch={handleSearch} searchQuery={search} />
           <div className="inline-flex items-center xs:scale-75 -z-20 sm:scale-90">
             <HiLocationMarker fill="#F0E9E9" size={50} />
             {/*Change to dyanmic text*/}
