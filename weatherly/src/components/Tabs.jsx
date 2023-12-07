@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const Tabs = (props) => {
   return (
     <>
-      <p className="text-2xl font-bold text-white hover:cursor-pointer hover:underline ">{props.name}</p>
+      <p className="text-2xl font-bold text-[#F0E9E9] hover:cursor-pointer hover:underline ">{props.name}</p>
     </>
   );
 };
