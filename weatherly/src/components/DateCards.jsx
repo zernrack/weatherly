@@ -8,7 +8,7 @@ function DateCards() {
         <h1 className="absolute text-3xl font-bold text-white font-poppins">
           12:00 PM
         </h1>
-        <img src={Sunny} alt="sunny" className="relative scale-100 left-5"/>
+        <img src={Sunny} alt="sunny" className="relative scale-90 left-5"/>
         <h1 className="absolute text-3xl font-extrabold text-white bottom-5 font-poppins">36°</h1>
       </div>
     </>
