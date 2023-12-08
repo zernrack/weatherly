@@ -13,13 +13,12 @@ function UserDashboard() {
     setSearch(value);
     console.log("Search:", value.toLowerCase());
 
-    console.log("API Key:", import.meta.env.VITE_APP_KEY);
     
     axios
       .get(`http://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_APP_KEY}&q=${value}&aqi=yes`)
       .then((res) => {
         setWeatherData(res.data);
-        console.log("Results: ",weatherData)
+        // console.log("Results: ",weatherData)
       })
       .catch((err) => {
         console.error("Error fetching weather data:", err);
