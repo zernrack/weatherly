@@ -1,17 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import { HiLocationMarker } from "react-icons/hi";
 import DateCards from "../components/DateCards";
 import Tabs from "../components/Tabs";
+import axios from "axios";
 
 function UserDashboard() {
   const [search, setSearch] = useState("");
+  const [weatherData, setWeatherData] = useState(null)
 
   const handleSearch = (value) => {
     setSearch(value);
     console.log("Search:", value.toLowerCase());
+
     
+    axios
+      .get(`http://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_APP_KEY}&q=${value}&aqi=yes`)
+      .then((res) => {
+        setWeatherData(res.data);
+        // console.log("Results: ",weatherData)
+      })
+      .catch((err) => {
+        console.error("Error fetching weather data:", err);
+      });
   };
+
+  useEffect(() => {
+    // Fetch initial weather data for the default location (Manila, Philippines)
+    const defaultLocation = "Manila";
+
+    // Call the handleSearch function with the default location
+    handleSearch(defaultLocation);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty dependency array to run the effect only once
 
   return (
     <>
@@ -26,7 +47,7 @@ function UserDashboard() {
             <HiLocationMarker fill="#F0E9E9" size={50} />
             {/*Change to dyanmic text*/}
             <h1 className="text-4xl font-light text-[#F0E9E9] font-poppins">
-              Manila, Philippines
+              {weatherData?.location?.name}, {weatherData?.location?.country}
             </h1>
           </div>
         </div>
