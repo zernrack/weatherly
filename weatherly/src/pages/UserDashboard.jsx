@@ -46,13 +46,11 @@ function UserDashboard() {
       <h1 className="mt-10 ml-10 text-4xl font-bold text-[#F0E9E9]">
         Weatherly.
       </h1>
-      {/* Header */}
       <div className="flex flex-col xl:justify-around xl:flex-row">
         <div className="flex flex-col items-center gap-10 mb-5">
           <SearchBar handleSearch={handleSearch} searchQuery={search} />
           <div className="inline-flex items-center xs:scale-75 -z-20 sm:scale-90">
             <HiLocationMarker fill="#F0E9E9" size={50} />
-            {/*Change to dyanmic text*/}
             <h1 className="text-4xl font-light text-[#F0E9E9] font-poppins">
               {weatherData?.location?.name}, {weatherData?.location?.country}
             </h1>
@@ -70,8 +68,7 @@ function UserDashboard() {
           </div>
         </div>
         <div>
-          {/* Forecasts */}
-          <div className="p-10 xl:w-[60rem] xl:h-[40rem] border border-black rounded-xl">
+          <div className="p-10 xl:w-[60rem] xl:h-[40rem] border border-none rounded-xl bg-[#adaaaa] bg-opacity-25">
             <div className="flex justify-around pt-5 mb-10">
               <Tabs
                 name="Hourly Forecast"
@@ -94,12 +91,12 @@ function UserDashboard() {
                 <>
                   {weatherData?.forecast?.forecastday
                     .slice(0, 3)
-                    .map((day, index) => (
+                    .map((weather, index) => (
                       <DateCards
                         key={index} // Ensure each DateCards has a unique key
-                        time={day.date}
-                        icon={day.day.condition.icon}
-                        temp={day.day.avgtemp_c}
+                        time={weather.date}
+                        icon={weather.day.condition.icon}
+                        temp={weather.day.avgtemp_c}
                       />
                     ))}
                 </>
