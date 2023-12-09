@@ -4,21 +4,25 @@ import { HiLocationMarker } from "react-icons/hi";
 import DateCards from "../components/DateCards";
 import Tabs from "../components/Tabs";
 import axios from "axios";
+import WeatherStats from "../components/WeatherStats";
 
 function UserDashboard() {
   const [search, setSearch] = useState("");
-  const [weatherData, setWeatherData] = useState(null)
+  const [weatherData, setWeatherData] = useState(null);
 
   const handleSearch = (value) => {
     setSearch(value);
     console.log("Search:", value.toLowerCase());
 
-    
     axios
-      .get(`http://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_APP_KEY}&q=${value}&aqi=yes`)
+      .get(
+        `http://api.weatherapi.com/v1/current.json?key=${
+          import.meta.env.VITE_APP_KEY
+        }&q=${value}&aqi=no`
+      )
       .then((res) => {
         setWeatherData(res.data);
-        // console.log("Results: ",weatherData)
+        console.log("Results: ", weatherData);
       })
       .catch((err) => {
         console.error("Error fetching weather data:", err);
@@ -31,7 +35,7 @@ function UserDashboard() {
 
     // Call the handleSearch function with the default location
     handleSearch(defaultLocation);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty dependency array to run the effect only once
 
   return (
@@ -49,6 +53,17 @@ function UserDashboard() {
             <h1 className="text-4xl font-light text-[#F0E9E9] font-poppins">
               {weatherData?.location?.name}, {weatherData?.location?.country}
             </h1>
+          </div>
+
+          <div>
+            <WeatherStats
+              placeTemp={weatherData?.current?.temp_c}
+              weatherIcon={weatherData?.current?.condition?.icon}
+              placeWeather={weatherData?.current?.condition?.text}
+              cloudinessPercent={weatherData?.current?.cloud}
+              humidityPercent={weatherData?.current?.humidity}
+              windSpeed={weatherData?.current?.wind_kph}
+            />
           </div>
         </div>
         <div>
