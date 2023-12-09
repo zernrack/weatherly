@@ -9,16 +9,21 @@ import WeatherStats from "../components/WeatherStats";
 function UserDashboard() {
   const [search, setSearch] = useState("");
   const [weatherData, setWeatherData] = useState(null);
+  const [activeTab, setActiveTab] = useState("Hourly Forecast");
+
+  const handleTabClick = (tabName) => {
+    setActiveTab(tabName);
+  };
 
   const handleSearch = async (value) => {
     setSearch(value);
     console.log("Search:", value.toLowerCase());
-  
+
     try {
       const res = await axios.get(
-        `http://api.weatherapi.com/v1/current.json?key=${
+        `http://api.weatherapi.com/v1/forecast.json?key=${
           import.meta.env.VITE_APP_KEY
-        }&q=${value}&aqi=no`
+        }&q=${value}&days=3&aqi=no`
       );
       setWeatherData(res.data);
       console.log("Results: ", weatherData);
@@ -26,7 +31,6 @@ function UserDashboard() {
       console.error("Error fetching weather data:", err);
     }
   };
-  
 
   useEffect(() => {
     // Fetch initial weather data for the default location (Manila, Philippines)
@@ -69,13 +73,49 @@ function UserDashboard() {
           {/* Forecasts */}
           <div className="p-10 xl:w-[60rem] xl:h-[40rem] border border-black rounded-xl">
             <div className="flex justify-around pt-5 mb-10">
-              <Tabs name="Hourly Forecast" />
-              <Tabs name="3 Day Forecast" />
+              <Tabs
+                name="Hourly Forecast"
+                isActive={activeTab === "Hourly Forecast"}
+                onClick={() => handleTabClick("Hourly Forecast")}
+              />
+              <Tabs
+                name="3 Day Forecast"
+                isActive={activeTab === "3 Day Forecast"}
+                onClick={() => handleTabClick("3 Day Forecast")}
+              />
             </div>
             <div className="flex justify-center gap-5">
-              <DateCards />
-              <DateCards />
-              <DateCards />
+              {activeTab === "Hourly Forecast" && (
+                // Render Hourly Forecast content
+                <></>
+              )}
+              {activeTab === "3 Day Forecast" && (
+                // Render 3 Day Forecast content
+                <>
+                  <DateCards
+                    time={weatherData?.forecast?.forecastday[0]?.date}
+                    icon={
+                      weatherData?.forecast?.forecastday[0]?.day.condition.icon
+                    }
+                    temp={weatherData?.forecast?.forecastday[0]?.day.avgtemp_c}
+                  />
+
+                  <DateCards
+                    time={weatherData?.forecast?.forecastday[1]?.date}
+                    icon={
+                      weatherData?.forecast?.forecastday[1]?.day.condition.icon
+                    }
+                    temp={weatherData?.forecast?.forecastday[1]?.day.avgtemp_c}
+                  />
+                  <DateCards
+                    time={weatherData?.forecast?.forecastday[2]?.date}
+                    icon={
+                      weatherData?.forecast?.forecastday[2]?.day.condition.icon
+                    }
+                    temp={weatherData?.forecast?.forecastday[2]?.day.avgtemp_c}
+                  />
+                </>
+              )}
             </div>
           </div>
         </div>
