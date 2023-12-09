@@ -86,34 +86,22 @@ function UserDashboard() {
             </div>
             <div className="flex justify-center gap-5">
               {activeTab === "Hourly Forecast" && (
-                // Render Hourly Forecast content
+                // Render Hourly Forecast content for 24 hours
                 <></>
               )}
               {activeTab === "3 Day Forecast" && (
                 // Render 3 Day Forecast content
                 <>
-                  <DateCards
-                    time={weatherData?.forecast?.forecastday[0]?.date}
-                    icon={
-                      weatherData?.forecast?.forecastday[0]?.day.condition.icon
-                    }
-                    temp={weatherData?.forecast?.forecastday[0]?.day.avgtemp_c}
-                  />
-
-                  <DateCards
-                    time={weatherData?.forecast?.forecastday[1]?.date}
-                    icon={
-                      weatherData?.forecast?.forecastday[1]?.day.condition.icon
-                    }
-                    temp={weatherData?.forecast?.forecastday[1]?.day.avgtemp_c}
-                  />
-                  <DateCards
-                    time={weatherData?.forecast?.forecastday[2]?.date}
-                    icon={
-                      weatherData?.forecast?.forecastday[2]?.day.condition.icon
-                    }
-                    temp={weatherData?.forecast?.forecastday[2]?.day.avgtemp_c}
-                  />
+                  {weatherData?.forecast?.forecastday
+                    .slice(0, 3)
+                    .map((day, index) => (
+                      <DateCards
+                        key={index} // Ensure each DateCards has a unique key
+                        time={day.date}
+                        icon={day.day.condition.icon}
+                        temp={day.day.avgtemp_c}
+                      />
+                    ))}
                 </>
               )}
             </div>
