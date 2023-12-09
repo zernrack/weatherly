@@ -11,7 +11,7 @@ const WeatherStats = ({
   return (
     <>
       <h1 className="font-bold text-[#F0E9E9] text-center text-9xl">
-        {placeTemp}°
+        {placeTemp}°c
       </h1>
       <h2 className="text-[#F0E9E9] inline-flex items-center text-2xl translate-x-24">
         <img
