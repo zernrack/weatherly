@@ -6,6 +6,7 @@ import Tabs from "../components/Tabs";
 import axios from "axios";
 import WeatherStats from "../components/WeatherStats";
 import HourlyTemps from "../components/HourlyTemps";
+import { FixedSizeList as List } from "react-window";
 
 function UserDashboard() {
   const [search, setSearch] = useState("");
@@ -86,7 +87,29 @@ function UserDashboard() {
               {activeTab === "Hourly Forecast" && (
                 // Render Hourly Forecast content for 24 hours
                 <>
-                  <HourlyTemps />
+                  {weatherData?.forecast?.forecastday[0]?.hour && (
+                    <List
+                      height={480}
+                      itemCount={24}
+                      width={1000}
+                      itemSize={120}
+                    >
+                      {({ index, style }) => {
+                        const hourData =
+                          weatherData.forecast.forecastday[0].hour[index];
+                        return (
+                          <div style={style}>
+                            <HourlyTemps
+                              key={index}
+                              time={hourData.time.substring(11)}
+                              temp={hourData.temp_c}
+                              icon={hourData.condition?.icon}
+                            />
+                          </div>
+                        );
+                      }}
+                    </List>
+                  )}
                 </>
               )}
               {activeTab === "3 Day Forecast" && (
