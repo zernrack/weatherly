@@ -5,6 +5,7 @@ import DateCards from "../components/DateCards";
 import Tabs from "../components/Tabs";
 import axios from "axios";
 import WeatherStats from "../components/WeatherStats";
+import HourlyTemps from "../components/HourlyTemps";
 
 function UserDashboard() {
   const [search, setSearch] = useState("");
@@ -84,7 +85,9 @@ function UserDashboard() {
             <div className="flex justify-center gap-5">
               {activeTab === "Hourly Forecast" && (
                 // Render Hourly Forecast content for 24 hours
-                <></>
+                <>
+                  <HourlyTemps />
+                </>
               )}
               {activeTab === "3 Day Forecast" && (
                 // Render 3 Day Forecast content
