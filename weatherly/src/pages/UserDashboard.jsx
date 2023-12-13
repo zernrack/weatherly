@@ -115,16 +115,18 @@ function UserDashboard() {
               {activeTab === "3 Day Forecast" && (
                 // Render 3 Day Forecast content
                 <>
-                  {weatherData?.forecast?.forecastday
-                    .slice(0, 3)
-                    .map((weather, index) => (
-                      <DateCards
-                        key={index} // Ensure each DateCards has a unique key
-                        time={weather.date}
-                        icon={weather.day.condition.icon}
-                        temp={weather.day.avgtemp_c}
-                      />
-                    ))}
+                  <div className="flex flex-col gap-10 xl:flex-row">
+                    {weatherData?.forecast?.forecastday
+                      .slice(0, 3)
+                      .map((weather, index) => (
+                        <DateCards
+                          key={index} // Ensure each DateCards has a unique key
+                          time={weather.date}
+                          icon={weather.day.condition.icon}
+                          temp={weather.day.avgtemp_c}
+                        />
+                      ))}
+                  </div>
                 </>
               )}
             </div>
