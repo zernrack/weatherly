@@ -16,7 +16,7 @@ const WeatherStats = ({
       <h2 className="text-[#F0E9E9] inline-flex items-center text-2xl translate-x-10 xl:translate-x-24">
         <img
           className="w-24 h-24 "
-          src={`http:${weatherIcon}`}
+          src={`https:${weatherIcon}`}
           alt="Weather Icon"
         />{" "}
         {placeWeather}
