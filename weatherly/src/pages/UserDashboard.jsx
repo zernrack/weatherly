@@ -23,7 +23,7 @@ function UserDashboard() {
 
     try {
       const res = await axios.get(
-        `http://api.weatherapi.com/v1/forecast.json?key=${
+        `https://api.weatherapi.com/v1/forecast.json?key=${
           import.meta.env.VITE_APP_KEY
         }&q=${value}&days=3&aqi=no`
       );
